@@ -9,7 +9,7 @@ from sklearn import metrics
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import PolynomialFeatures
 
-data_file = "insurance.csv"
+data_file = "../统计学/insurance.csv"
 data_frame = pd.read_csv(data_file) #读取数据集
 #data_frame.head()   #观察读取的数据是否正确
 #print(data_frame.head())
@@ -101,4 +101,24 @@ X_train,X_test,Y_train,Y_test = train_test_split(X_poly,Y,test_size=0.25)
 lin_reg = LinearRegression()
 lin_reg  = lin_reg.fit(X_train,Y_train)
 #预测准确率
-print('准确率为：',lin_reg.score(X_test,Y_test))
+#print('准确率为：',lin_reg.score(X_test,Y_test))
+'''
+X_poly_df = pd.DataFrame(X_poly,columns=poly_reg.get_feature_names())
+print(X_poly_df.head())
+X_poly_df.to_csv('coef.csv')
+'''
+#plt.scatter(X_test,Y_test,color='blue')
+#plt.plot(X,lin_reg.predict(X_poly),color='red')
+
+Y_predict = lin_reg.predict(X_test)
+plt.figure()
+plt.plot(range(len(Y_predict)),Y_predict,'r',label='charges_predict')
+plt.plot(range(len(Y_predict)),Y_test,'b',label='charges_test')
+plt.legend(loc='upper right')
+plt.title('Polynomial Regression')
+plt.show()
+
+'''
+print('coef: ',lin_reg.coef_)
+print('intercept: ',lin_reg.intercept_)
+'''
